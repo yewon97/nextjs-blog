@@ -1,4 +1,5 @@
 import MarkdownViewer from '@/components/MarkdownViewer';
+import Pagination from '@/components/Pagination';
 import { getPostData } from '@/service/posts';
 import Image from 'next/image';
 import { FcCalendar } from 'react-icons/fc';
@@ -30,6 +31,7 @@ export default async function PostPage({ params: { slug } }: Props) {
         <div className="w-44 border-2 border-sky-600 mt-4 mb-8" />
         <MarkdownViewer content={content} />
       </section>
+      <Pagination current={slug} />
     </article>
   );
 }

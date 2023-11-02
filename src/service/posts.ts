@@ -11,6 +11,7 @@ export type Post = {
 };
 
 export type PostData = Post & { content: string };
+export type PostPagination = Post & { status: string };
 
 export async function getFeaturedPosts(): Promise<Post[]> {
   return getAllPosts() //
@@ -38,4 +39,35 @@ export async function getPostData(fileName: string): Promise<PostData> {
 
   const content = await readFile(filePath, 'utf-8');
   return { ...metadata, content };
+}
+
+export async function getPaginationPost(
+  current: string,
+): Promise<PostPagination[] | {}> {
+  const currentPostIndex = await getAllPosts() //
+    .then((posts) => posts.findIndex((post) => post.path === current));
+
+  const findPrev = await getAllPosts().then((posts) => {
+    return posts
+      .filter(
+        (_, idx) => idx === currentPostIndex - 1 && currentPostIndex - 1 !== 0,
+      )
+      .map((post, idx) => ({
+        ...post,
+        status: 'prev',
+      }));
+  });
+  const findNext = await getAllPosts().then((posts) => {
+    return posts
+      .filter(
+        (_, idx) =>
+          idx === currentPostIndex + 1 && currentPostIndex + 1 !== posts.length,
+      )
+      .map((post, idx) => ({
+        ...post,
+        status: 'next',
+      }));
+  });
+
+  return [findPrev, findNext];
 }
