@@ -9,6 +9,9 @@ type Form = {
   message: string;
 };
 
+const LABEL_CLASS = "font-semibold";
+const INPUT_CLASS = "text-black px-1";
+
 export default function ContactForm() {
   const [form, setForm] = useState<Form>({
     from: "",
@@ -25,7 +28,6 @@ export default function ContactForm() {
 
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    console.log(form);
 
     setBanner({ message: "성공했습니다!", state: "success" });
 
@@ -35,10 +37,15 @@ export default function ContactForm() {
   };
 
   return (
-    <>
+    <section className="w-full max-w-md">
       {banner && <Banner banner={banner} />}
-      <form onSubmit={onSubmit}>
-        <label htmlFor="from">Your Email</label>
+      <form
+        onSubmit={onSubmit}
+        className="w-full flex flex-col gap-2 my-4 p-4 bg-slate-700 rounded-lg text-white"
+      >
+        <label htmlFor="from" className={LABEL_CLASS}>
+          Your Email
+        </label>
         <input
           type="email"
           id="from"
@@ -47,8 +54,11 @@ export default function ContactForm() {
           autoFocus
           value={form.from}
           onChange={onChange}
+          className={INPUT_CLASS}
         />
-        <label htmlFor="subject">Subject</label>
+        <label htmlFor="subject" className={LABEL_CLASS}>
+          Subject
+        </label>
         <input
           type="text"
           id="subject"
@@ -56,8 +66,11 @@ export default function ContactForm() {
           required
           value={form.subject}
           onChange={onChange}
+          className={INPUT_CLASS}
         />
-        <label htmlFor="message">Message</label>
+        <label htmlFor="message" className={LABEL_CLASS}>
+          Message
+        </label>
         <textarea
           rows={10}
           id="message"
@@ -65,9 +78,15 @@ export default function ContactForm() {
           required
           value={form.message}
           onChange={onChange}
+          className={INPUT_CLASS}
         />
-        <button type="submit">Submit</button>
+        <button
+          type="submit"
+          className="bg-yellow-300 font-bold text-black hover:bg-yellow-400"
+        >
+          Submit
+        </button>
       </form>
-    </>
+    </section>
   );
 }

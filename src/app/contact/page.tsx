@@ -7,10 +7,12 @@ const LINKS = [
   { icon: <AiFillYoutube />, url: "" },
 ];
 
+const H2_CLASS = "text-3xl font-bold my-2";
+
 export default function ContactPage() {
   return (
     <section className="flex flex-col items-center">
-      <h2 className="text-3xl font-bold my-2">Contact Me</h2>
+      <h2 className={H2_CLASS}>Contact Me</h2>
       <p>dpdnjs402@naver.com</p>
       <ul className="flex gap-4 my-2">
         {LINKS.map((link, idx) => {
@@ -27,7 +29,7 @@ export default function ContactPage() {
           );
         })}
       </ul>
-      <h2>Or Send me an Email</h2>
+      <h2 className={H2_CLASS}>Or Send me an Email</h2>
       <ContactForm />
     </section>
   );
