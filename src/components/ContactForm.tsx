@@ -1,6 +1,7 @@
 "use client";
 
 import { ChangeEvent, FormEvent, useState } from "react";
+import Banner, { BannerData } from "./Banner";
 
 type Form = {
   from: string;
@@ -20,13 +21,22 @@ export default function ContactForm() {
     setForm((prev) => ({ ...prev, [name]: value }));
   };
 
+  const [banner, setBanner] = useState<BannerData | null>(null);
+
   const onSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     console.log(form);
+
+    setBanner({ message: "성공했습니다!", state: "success" });
+
+    setTimeout(() => {
+      setBanner(null);
+    }, 3000);
   };
 
   return (
     <>
+      {banner && <Banner banner={banner} />}
       <form onSubmit={onSubmit}>
         <label htmlFor="from">Your Email</label>
         <input
